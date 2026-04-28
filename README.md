@@ -36,7 +36,7 @@ spam_detector/
 
 ### 1. Clone / Download the project
 ```bash
-git clone https://github.com/YOUR_USERNAME/spam-detector.git
+git clone  https://github.com/imSHR3YA/spam-detector
 cd spam-detector
 ```
 
