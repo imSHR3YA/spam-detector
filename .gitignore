@@ -1,0 +1,51 @@
+# ─── Python ─────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# ─── Virtual Environment ───────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ─── Environment Variables ─────────────
+.env
+
+# ─── Jupyter Notebook ──────────────────
+.ipynb_checkpoints/
+
+# ─── VS Code / IDE ─────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── OS Files ──────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Logs ──────────────────────────────
+*.log
+
+# ─── Model Files (Optional) ────────────
+model/*.pkl
+
+# ─── Temporary / Cache ─────────────────
+*.cache
+*.tmp
+
+# ─── Flask ─────────────────────────────
+instance/
+.webassets-cache
+
+# ─── Build / Dist ──────────────────────
+build/
+dist/
+*.egg-info/
+
+# ─── Dataset (optional) ────────────────
+# Uncomment if dataset is large
+# data/*.csv
