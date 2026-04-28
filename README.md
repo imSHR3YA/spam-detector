@@ -29,6 +29,12 @@ spam_detector/
 ├── requirements.txt
 └── README.md
 ```
+---
+
+## System Diagram
+
+![system diagram](/sys_diagram.png)
+
 
 ---
 
@@ -100,7 +106,7 @@ http://localhost:5000
 
 ---
 
-## 🧠 How the Model Works (Viva Explanation)
+## How the Model Works  
 
 ### Step 1 — Text Preprocessing (`preprocessing.py`)
 Raw email text goes through a cleaning pipeline:
@@ -196,7 +202,7 @@ git add .
 git commit -m "Initial commit: Email Spam Detector"
 
 # Create repo on GitHub, then:
-git remote add origin https://github.com/YOUR_USERNAME/spam-detector.git
+git remote add origin  https://github.com/imSHR3YA/spam-detector
 git branch -M main
 git push -u origin main
 ```
@@ -234,14 +240,4 @@ model/*.pkl
 
 ---
 
-## 🎓 Viva Quick-Answer Cheatsheet
-
-| Question | Answer |
-|----------|--------|
-| Why TF-IDF over Bag-of-Words? | TF-IDF penalizes common words; BoW treats them equally |
-| Why Logistic Regression? | Fast, interpretable, works well on high-dimensional sparse text |
-| What does `pickle` do? | Serializes Python objects to disk so models can be reloaded without retraining |
-| What is `ngram_range=(1,2)`? | Captures unigrams AND bigrams (2-word phrases) as features |
-| What is `predict_proba()`? | Returns the probability of each class — used for the confidence score |
-| What is Flask? | A lightweight Python web framework for building REST APIs |
-| What is `sublinear_tf=True`? | Applies log(tf)+1 to reduce the impact of very frequent terms |
+ 
