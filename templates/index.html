@@ -22,9 +22,14 @@
         <span class="logo-icon">⚡</span>
         <span class="logo-text">SpamGuard</span>
       </div>
-      <div class="health-badge" id="healthBadge">
-        <span class="dot"></span>
-        <span id="healthText">Checking...</span>
+      <div class="header-right">
+        <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <div class="health-badge" id="healthBadge">
+          <span class="dot"></span>
+          <span id="healthText">Checking...</span>
+        </div>
       </div>
     </header>
 
@@ -39,8 +44,38 @@
       </p>
     </section>
 
-    <!-- Main Card -->
-    <main class="card">
+    <!-- Live Stats Counter -->
+    <section class="stats-section">
+      <div class="stat-card">
+        <div class="stat-value" id="statScanned">0</div>
+        <div class="stat-label">Total Scanned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value spam" id="statSpam">0</div>
+        <div class="stat-label">Spam Caught</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value ham" id="statHam">0</div>
+        <div class="stat-label">Ham Passed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value rate" id="statRate">0%</div>
+        <div class="stat-label">Spam Rate</div>
+      </div>
+    </section>
+
+    <!-- Tabs for Single / Batch -->
+    <div class="tabs-container">
+      <button class="tab-btn active" id="singleTab" onclick="switchTab('single')">
+        Single Email
+      </button>
+      <button class="tab-btn" id="batchTab" onclick="switchTab('batch')">
+        Batch CSV
+      </button>
+    </div>
+
+    <!-- Main Card - Single Email Tab -->
+    <main class="card" id="singleTab-content">
       <div class="card-inner">
 
         <!-- Input Section -->
@@ -92,6 +127,9 @@
               </div>
             </div>
 
+            <!-- Model Badge (for Ollama) -->
+            <div class="model-badge" id="modelBadge" style="display:none;"></div>
+
             <!-- Confidence Bar -->
             <div class="confidence-area">
               <div class="confidence-header">
@@ -103,17 +141,95 @@
               </div>
             </div>
 
+            <!-- Analysis Speed Timer -->
+            <div class="timer-display" id="timerDisplay" style="display:none;"></div>
+
+            <!-- Word Heatmap -->
+            <div class="heatmap-area" id="heatmapArea" style="display:none;">
+              <div class="heatmap-label">Spam Signal Heatmap:</div>
+              <div class="heatmap-content" id="heatmapContent"></div>
+              <div class="heatmap-legend">
+                🔴 Strong spam signal &nbsp; 🟡 Moderate &nbsp; 🟢 Ham signal
+              </div>
+            </div>
+
+            <!-- AI Reasoning (for Ollama) -->
+            <div class="reasoning-block" id="reasoningBlock" style="display:none;">
+              <span class="reasoning-icon">🤖</span>
+              <span class="reasoning-text" id="reasoningText"></span>
+            </div>
+
             <!-- Processed Preview -->
             <div class="preview-area" id="previewArea">
               <span class="preview-label">Processed tokens preview:</span>
               <span class="preview-text" id="previewText"></span>
             </div>
+
+            <!-- Export PDF Button -->
+            <button class="export-pdf-btn" id="exportPdfBtn" onclick="exportPDF()">
+              📄 Export PDF Report
+            </button>
           </div>
 
         </div>
 
       </div>
     </main>
+
+    <!-- Batch CSV Upload Tab -->
+    <main class="card" id="batchTab-content" style="display:none;">
+      <div class="card-inner">
+        <div class="batch-section">
+          <label class="field-label">
+            <span>UPLOAD CSV FILE</span>
+          </label>
+          <p class="batch-help">CSV must contain a "text" or "email" column with email contents.</p>
+          
+          <div class="file-input-wrapper">
+            <input type="file" id="csvFile" accept=".csv" class="csv-file-input" />
+            <label for="csvFile" class="csv-file-label">
+              📁 Choose CSV File
+            </label>
+          </div>
+
+          <button class="analyze-btn" id="batchBtn" onclick="analyzeBatch()" style="margin-top: 16px;">
+            <span class="btn-icon">⚡</span>
+            <span class="btn-text">Scan All</span>
+            <span class="btn-loader" id="batchLoader" style="display:none;">
+              <span class="spinner"></span>
+            </span>
+          </button>
+
+          <!-- Batch Results -->
+          <div class="batch-results" id="batchResults" style="display:none;">
+            <div class="batch-summary" id="batchSummary"></div>
+            <div class="batch-table-wrapper">
+              <table class="batch-table">
+                <thead>
+                  <tr>
+                    <th>Email Preview</th>
+                    <th>Verdict</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="batchTableBody">
+                </tbody>
+              </table>
+            </div>
+            <button class="download-csv-btn" id="downloadCsvBtn" onclick="downloadBatchResults()">
+              ⬇️ Download Results CSV
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- History Log -->
+    <section class="history-section" id="historySection" style="display:none;">
+      <h2 class="history-title">📋 Recent Analyses</h2>
+      <div class="history-list" id="historyList">
+      </div>
+    </section>
 
     <!-- How It Works -->
     <section class="pipeline">
@@ -160,6 +276,8 @@
 
   </div>
 
+  <!-- jsPDF Library for PDF Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
