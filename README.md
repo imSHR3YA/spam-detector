@@ -96,6 +96,10 @@ spam_detector/
     TF-IDF             Logistic Regression    (Optional: Ollama LLaMA)
   Vectorizer           Model (spam_model.pkl)  (local LLM fallback)
 ```
+---
+## System Diagram Image
+
+![System Diagram](/sys_diagram.png)
 
 ---
 
